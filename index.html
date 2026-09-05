@@ -1,375 +1,775 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Today's Plan</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<title>Today's Plan</title>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            min-height: 100vh;
-            padding: 30px 15px;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f6fb;
+    color:#202124;
+    min-height:100vh;
+}
 
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 25px;
-        }
+body.dark{
+    background:#121318;
+    color:#f5f5f5;
+}
 
-        .header h1 {
-            font-size: 38px;
-            margin: 10px 0;
-        }
+header{
+    background:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #eee;
+}
 
-        .header p {
-            margin: 5px;
-            opacity: 0.9;
-        }
+.dark header{
+    background:#1b1d24;
+    border-color:#292c35;
+}
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
 
-        .date {
-            text-align: center;
-            color: #666;
-            margin-bottom: 20px;
-        }
+.logo span{
+    color:#667eea;
+}
 
-        .input-area {
-            display: flex;
-            gap: 10px;
-        }
+.header-buttons button{
+    border:0;
+    background:#f0f1f5;
+    padding:10px 13px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:17px;
+}
 
-        input {
-            flex: 1;
-            padding: 14px;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            font-size: 16px;
-            outline: none;
-        }
+.dark .header-buttons button{
+    background:#292c35;
+    color:white;
+}
 
-        input:focus {
-            border-color: #667eea;
-        }
+.container{
+    max-width:1100px;
+    margin:35px auto;
+    padding:0 20px;
+}
 
-        .add-btn {
-            border: none;
-            background: #667eea;
-            color: white;
-            padding: 0 20px;
-            border-radius: 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+.welcome{
+    margin-bottom:25px;
+}
 
-        .add-btn:hover {
-            background: #5568d8;
-        }
+.welcome h1{
+    font-size:32px;
+    margin-bottom:7px;
+}
 
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 22px 0;
-            padding: 15px;
-            background: #f5f6ff;
-            border-radius: 12px;
-            color: #555;
-        }
+.welcome p{
+    color:#777;
+}
 
-        #taskList {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+.dark .welcome p{
+    color:#aaa;
+}
 
-        .task {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-            background: #f8f8f8;
-            border-radius: 12px;
-        }
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
 
-        .task input[type="checkbox"] {
-            flex: none;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
+.stat{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
 
-        .task-text {
-            flex: 1;
-            font-size: 16px;
-            word-break: break-word;
-        }
+.dark .stat,
+.dark .main-card{
+    background:#1b1d24;
+}
 
-        .completed {
-            text-decoration: line-through;
-            color: #999;
-        }
+.stat-title{
+    color:#777;
+    font-size:14px;
+}
 
-        .delete-btn {
-            border: none;
-            background: #ff5c5c;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.dark .stat-title{
+    color:#aaa;
+}
 
-        .delete-btn:hover {
-            background: #e04444;
-        }
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:8px;
+}
 
-        .clear-btn {
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: #eee;
-            cursor: pointer;
-        }
+.main-card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
 
-        .clear-btn:hover {
-            background: #ddd;
-        }
+.add-area{
+    display:grid;
+    grid-template-columns:1fr 150px 120px;
+    gap:10px;
+    margin-bottom:20px;
+}
 
-        .empty {
-            text-align: center;
-            color: #999;
-            padding: 25px;
-        }
+input,select{
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    outline:none;
+    font-size:15px;
+    background:white;
+}
 
-        @media (max-width: 500px) {
-            .header h1 {
-                font-size: 30px;
-            }
+.dark input,
+.dark select{
+    background:#252832;
+    color:white;
+    border-color:#3a3d47;
+}
 
-            .input-area {
-                flex-direction: column;
-            }
+.add-btn{
+    background:#667eea;
+    color:white;
+    border:0;
+    border-radius:11px;
+    cursor:pointer;
+    font-weight:bold;
+}
 
-            .add-btn {
-                padding: 14px;
-            }
-        }
-    </style>
+.add-btn:hover{
+    background:#5568d8;
+}
+
+.progress-box{
+    margin-bottom:25px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.progress{
+    height:10px;
+    background:#e8e9ee;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#667eea;
+    transition:.3s;
+}
+
+.filters{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.filters button{
+    padding:9px 15px;
+    border:0;
+    border-radius:20px;
+    cursor:pointer;
+    background:#f0f1f5;
+}
+
+.dark .filters button{
+    background:#292c35;
+    color:white;
+}
+
+.filters button.active{
+    background:#667eea;
+    color:white;
+}
+
+.task{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+    margin-bottom:10px;
+    border:1px solid #eee;
+    border-radius:14px;
+    transition:.2s;
+}
+
+.dark .task{
+    border-color:#30333d;
+}
+
+.task:hover{
+    transform:translateY(-1px);
+}
+
+.check{
+    width:20px;
+    height:20px;
+    cursor:pointer;
+}
+
+.task-content{
+    flex:1;
+}
+
+.task-title{
+    font-size:16px;
+    font-weight:600;
+}
+
+.task-info{
+    display:flex;
+    gap:10px;
+    margin-top:6px;
+    font-size:12px;
+    color:#777;
+}
+
+.completed .task-title{
+    text-decoration:line-through;
+    color:#999;
+}
+
+.priority{
+    padding:5px 9px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.high{
+    background:#ffe1e1;
+    color:#d33;
+}
+
+.medium{
+    background:#fff0c7;
+    color:#9a7200;
+}
+
+.low{
+    background:#dff6e5;
+    color:#21863a;
+}
+
+.delete{
+    border:0;
+    background:#ffe5e5;
+    color:#d33;
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    padding:40px 10px;
+    color:#999;
+}
+
+.clear{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    background:#f0f1f5;
+}
+
+.dark .clear{
+    background:#292c35;
+    color:white;
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:15px 20px;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .add-area{
+        grid-template-columns:1fr;
+    }
+
+    .add-btn{
+        padding:14px;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .main-card{
+        padding:18px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<header>
 
-    <div class="header">
-        <h1>📅 Today's Plan</h1>
-        <p>Plan your day. Complete your goals. 🚀</p>
+    <div class="logo">
+        📅 Today's <span>Plan</span>
     </div>
 
-    <div class="card">
+    <div class="header-buttons">
+        <button onclick="toggleDark()">🌙</button>
+    </div>
 
-        <div class="date" id="todayDate"></div>
+</header>
 
-        <div class="input-area">
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>Plan your day 🚀</h1>
+        <p id="date"></p>
+    </div>
+
+
+    <div class="dashboard">
+
+        <div class="stat">
+            <div class="stat-title">Total Tasks</div>
+            <div class="stat-number" id="total">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-title">Completed</div>
+            <div class="stat-number" id="completed">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-title">Remaining</div>
+            <div class="stat-number" id="remaining">0</div>
+        </div>
+
+    </div>
+
+
+    <div class="main-card">
+
+        <div class="add-area">
+
             <input
-                type="text"
                 id="taskInput"
-                placeholder="What do you need to do today?"
-                onkeydown="handleEnter(event)"
+                placeholder="What do you need to do?"
+                onkeydown="enterAdd(event)"
             >
-            <button class="add-btn" onclick="addTask()">Add Task</button>
+
+            <select id="priority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+
+            <button class="add-btn" onclick="addTask()">
+                + Add Task
+            </button>
+
         </div>
 
-        <div class="stats">
-            <span>Total: <b id="total">0</b></span>
-            <span>Completed: <b id="completed">0</b></span>
-            <span>Left: <b id="left">0</b></span>
+
+        <div class="progress-box">
+
+            <div class="progress-top">
+                <span>Today's Progress</span>
+                <span id="percent">0%</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
         </div>
 
-        <ul id="taskList"></ul>
 
-        <button class="clear-btn" onclick="clearCompleted()">
-            Clear Completed Tasks
+        <div class="filters">
+
+            <button class="active" onclick="filterTasks('all',this)">
+                All
+            </button>
+
+            <button onclick="filterTasks('active',this)">
+                Active
+            </button>
+
+            <button onclick="filterTasks('completed',this)">
+                Completed
+            </button>
+
+        </div>
+
+
+        <div id="taskList"></div>
+
+
+        <button class="clear" onclick="clearCompleted()">
+            🧹 Clear Completed
         </button>
 
     </div>
 
 </div>
 
+
 <script>
 
-    let tasks = JSON.parse(localStorage.getItem("todaysTasks")) || [];
+let tasks =
+JSON.parse(localStorage.getItem("todaysPlan")) || [];
 
-    function showDate() {
-        const today = new Date();
+let currentFilter = "all";
 
-        const options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        };
 
-        document.getElementById("todayDate").innerText =
-            today.toLocaleDateString("en-IN", options);
+function save(){
+
+    localStorage.setItem(
+        "todaysPlan",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+function addTask(){
+
+    const input =
+    document.getElementById("taskInput");
+
+    const priority =
+    document.getElementById("priority").value;
+
+    const text =
+    input.value.trim();
+
+    if(!text){
+
+        alert("Please enter a task!");
+
+        return;
     }
 
-    function saveTasks() {
-        localStorage.setItem("todaysTasks", JSON.stringify(tasks));
+
+    tasks.push({
+
+        id:Date.now(),
+
+        text:text,
+
+        priority:priority,
+
+        completed:false
+
+    });
+
+
+    input.value="";
+
+    save();
+
+    display();
+
+}
+
+
+function enterAdd(e){
+
+    if(e.key==="Enter"){
+
+        addTask();
+
     }
 
-    function addTask() {
+}
 
-        const input = document.getElementById("taskInput");
-        const text = input.value.trim();
 
-        if (text === "") {
-            alert("Please enter a task!");
-            return;
+function toggleTask(id){
+
+    tasks =
+    tasks.map(task=>{
+
+        if(task.id===id){
+
+            task.completed =
+            !task.completed;
+
         }
 
-        tasks.push({
-            id: Date.now(),
-            text: text,
-            completed: false
-        });
+        return task;
 
-        input.value = "";
+    });
 
-        saveTasks();
-        displayTasks();
+
+    save();
+
+    display();
+
+}
+
+
+function deleteTask(id){
+
+    tasks =
+    tasks.filter(task=>task.id!==id);
+
+    save();
+
+    display();
+
+}
+
+
+function clearCompleted(){
+
+    tasks =
+    tasks.filter(task=>!task.completed);
+
+    save();
+
+    display();
+
+}
+
+
+function filterTasks(type,button){
+
+    currentFilter=type;
+
+    document
+    .querySelectorAll(".filters button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    display();
+
+}
+
+
+function display(){
+
+    const list =
+    document.getElementById("taskList");
+
+    list.innerHTML="";
+
+
+    let filtered=tasks;
+
+
+    if(currentFilter==="active"){
+
+        filtered =
+        tasks.filter(task=>!task.completed);
+
     }
 
-    function handleEnter(event) {
-        if (event.key === "Enter") {
-            addTask();
-        }
+
+    if(currentFilter==="completed"){
+
+        filtered =
+        tasks.filter(task=>task.completed);
+
     }
 
-    function toggleTask(id) {
 
-        tasks = tasks.map(task => {
+    if(filtered.length===0){
 
-            if (task.id === id) {
-                return {
-                    ...task,
-                    completed: !task.completed
-                };
-            }
+        list.innerHTML=
+        `<div class="empty">
+            ✨ No tasks here
+        </div>`;
 
-            return task;
-        });
-
-        saveTasks();
-        displayTasks();
     }
 
-    function deleteTask(id) {
 
-        tasks = tasks.filter(task => task.id !== id);
+    filtered.forEach(task=>{
 
-        saveTasks();
-        displayTasks();
-    }
+        const div =
+        document.createElement("div");
 
-    function clearCompleted() {
+        div.className =
+        "task " +
+        (task.completed ? "completed":"");
 
-        tasks = tasks.filter(task => !task.completed);
 
-        saveTasks();
-        displayTasks();
-    }
+        div.innerHTML=`
 
-    function displayTasks() {
+            <input
+                class="check"
+                type="checkbox"
+                ${task.completed ? "checked":""}
+                onchange="toggleTask(${task.id})"
+            >
 
-        const list = document.getElementById("taskList");
+            <div class="task-content">
 
-        list.innerHTML = "";
+                <div class="task-title">
+                    ${escapeHTML(task.text)}
+                </div>
 
-        if (tasks.length === 0) {
+                <div class="task-info">
 
-            list.innerHTML =
-                '<div class="empty">No plans yet. Add your first task! ✨</div>';
-
-        } else {
-
-            tasks.forEach(task => {
-
-                const li = document.createElement("li");
-                li.className = "task";
-
-                li.innerHTML = `
-                    <input
-                        type="checkbox"
-                        ${task.completed ? "checked" : ""}
-                        onchange="toggleTask(${task.id})"
-                    >
-
-                    <span class="task-text ${task.completed ? "completed" : ""}">
-                        ${escapeHTML(task.text)}
+                    <span class="priority ${task.priority}">
+                        ${task.priority.toUpperCase()}
                     </span>
 
-                    <button
-                        class="delete-btn"
-                        onclick="deleteTask(${task.id})">
-                        🗑
-                    </button>
-                `;
+                    <span>
+                        Today
+                    </span>
 
-                list.appendChild(li);
-            });
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteTask(${task.id})">
+
+                🗑️
+
+            </button>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+
+    updateStats();
+
+}
+
+
+function updateStats(){
+
+    const total=tasks.length;
+
+    const completed=
+    tasks.filter(t=>t.completed).length;
+
+    const remaining=
+    total-completed;
+
+
+    const percent=
+    total===0
+    ?0
+    :Math.round((completed/total)*100);
+
+
+    document.getElementById("total")
+    .innerText=total;
+
+    document.getElementById("completed")
+    .innerText=completed;
+
+    document.getElementById("remaining")
+    .innerText=remaining;
+
+    document.getElementById("percent")
+    .innerText=percent+"%";
+
+    document.getElementById("progressBar")
+    .style.width=percent+"%";
+
+}
+
+
+function toggleDark(){
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark")
+    );
+
+}
+
+
+function escapeHTML(text){
+
+    const div=
+    document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+
+function showDate(){
+
+    const date=
+    new Date();
+
+    document.getElementById("date")
+    .innerText=
+    date.toLocaleDateString(
+        "en-IN",
+        {
+            weekday:"long",
+            year:"numeric",
+            month:"long",
+            day:"numeric"
         }
+    );
 
-        updateStats();
-    }
+}
 
-    function updateStats() {
 
-        const total = tasks.length;
+if(
+    localStorage.getItem("darkMode")==="true"
+){
 
-        const completed =
-            tasks.filter(task => task.completed).length;
+    document.body.classList.add("dark");
 
-        const left = total - completed;
+}
 
-        document.getElementById("total").innerText = total;
-        document.getElementById("completed").innerText = completed;
-        document.getElementById("left").innerText = left;
-    }
 
-    function escapeHTML(text) {
+showDate();
 
-        const div = document.createElement("div");
-
-        div.textContent = text;
-
-        return div.innerHTML;
-    }
-
-    showDate();
-    displayTasks();
+display();
 
 </script>
 
