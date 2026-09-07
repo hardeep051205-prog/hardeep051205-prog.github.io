@@ -520,6 +520,37 @@ return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;",
 
 if(localStorage.getItem("dark")==="true")document.body.classList.add("dark");
 </script>
+<script>
+async function askPlanAI(prompt) {
+  try {
+    const response = await fetch(
+      "https://todays-plan-ai.49pgqfnv94.workers.dev/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: prompt
+        })
+      }
+    );
 
+    const data = await response.json();
+
+    if (data.output_text) {
+      return data.output_text;
+    }
+
+    if (data.error) {
+      return "AI Error: " + (data.error.message || "Something went wrong");
+    }
+
+    return "AI response nahi mili.";
+  } catch (error) {
+    return "AI naal connection nahi ho rahi.";
+  }
+}
+</script>
 </body>
 </html>
