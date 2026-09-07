@@ -551,6 +551,91 @@ async function askPlanAI(prompt) {
     return "AI naal connection nahi ho rahi.";
   }
 }
+</script> 
+  <!-- PLAN AI -->
+<section id="planAI" style="
+  margin:20px;
+  padding:25px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+">
+  <h2>🤖 PlanAI</h2>
+  <p>Apne ajj de tasks likho, AI tuhade layi smart plan banavega.</p>
+
+  <textarea id="aiPrompt" placeholder="Example: Ajj menu 3 ghante study, gym, assignment te rest karna hai..." style="
+    width:100%;
+    min-height:120px;
+    padding:15px;
+    border:0;
+    border-radius:14px;
+    resize:vertical;
+    font-size:16px;
+    box-sizing:border-box;
+  "></textarea>
+
+  <button onclick="runPlanAI()" style="
+    margin-top:12px;
+    padding:13px 22px;
+    border:0;
+    border-radius:12px;
+    background:white;
+    color:#667eea;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+  ">
+    ✨ Create My Plan
+  </button>
+
+  <div id="aiResult" style="
+    margin-top:20px;
+    padding:18px;
+    background:rgba(255,255,255,.15);
+    border-radius:14px;
+    white-space:pre-wrap;
+    display:none;
+  "></div>
+</section>
+
+<script>
+async function runPlanAI() {
+  const prompt = document.getElementById("aiPrompt").value.trim();
+  const result = document.getElementById("aiResult");
+
+  if (!prompt) {
+    alert("Pehla apna plan/tasks likho 🙂");
+    return;
+  }
+
+  result.style.display = "block";
+  result.innerText = "🤖 AI tuhade layi plan bana reha hai...";
+
+  try {
+    const answer = await askPlanAI(`
+You are PlanAI, a smart daily productivity assistant.
+
+User's request:
+${prompt}
+
+Create a practical plan for today.
+
+Give:
+1. Top priorities
+2. Suggested timetable
+3. What to do first
+4. Short breaks
+5. A small motivational message
+
+Keep the plan clear and easy to follow.
+`);
+
+    result.innerText = "🤖 PlanAI\n\n" + answer;
+  } catch (error) {
+    result.innerText = "❌ AI naal connection nahi ho saki.";
+  }
+}
 </script>
 </body>
 </html>
