@@ -155,9 +155,197 @@ background:#1f2937;color:#f9fafb
 .hero h2{font-size:24px}
 }
 </style>
+  <style>
+.login-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.login-logo {
+  font-size: 55px;
+}
+
+.login-box h1 {
+  margin: 5px 0;
+  font-size: 32px;
+}
+
+.login-subtitle {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box p span {
+  color: #667eea;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#authMessage {
+  margin-top: 15px;
+  font-weight: bold;
+}
+</style>
+  <style>
+.login-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.login-logo {
+  font-size: 55px;
+}
+
+.login-box h1 {
+  margin: 5px 0;
+  font-size: 32px;
+}
+
+.login-subtitle {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box p span {
+  color: #667eea;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#authMessage {
+  margin-top: 15px;
+  font-weight: bold;
+}
+</style>
 </head>
 
 <body>
+ <!-- LOGIN SYSTEM -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">📅</div>
+
+    <h1>Today's Plan</h1>
+    <p class="login-subtitle">Plan your day. Achieve your goals.</p>
+
+    <div id="loginForm">
+      <h2>Welcome Back 👋</h2>
+
+      <input type="email" id="loginEmail" placeholder="Email address">
+      <input type="password" id="loginPassword" placeholder="Password">
+
+      <button onclick="loginUser()">🔐 Login</button>
+
+      <p>
+        Don't have an account?
+        <span onclick="showSignup()">Create Account</span>
+      </p>
+    </div>
+
+    <div id="signupForm" style="display:none;">
+      <h2>Create Account 📝</h2>
+
+      <input type="text" id="signupName" placeholder="Your name">
+      <input type="email" id="signupEmail" placeholder="Email address">
+      <input type="password" id="signupPassword" placeholder="Create password">
+
+      <button onclick="signupUser()">✨ Create Account</button>
+
+      <p>
+        Already have an account?
+        <span onclick="showLogin()">Login</span>
+      </p>
+    </div>
+
+    <p id="authMessage"></p>
+  </div>
+</div> 
 
 <!-- WELCOME SCREEN -->
 <section class="welcome" id="welcome">
@@ -1566,5 +1754,71 @@ document.addEventListener(
 }
 
 </style>
+  <script>
+function showSignup() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("authMessage").textContent = "";
+}
+
+function showLogin() {
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("authMessage").textContent = "";
+}
+
+function signupUser() {
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !email || !password) {
+    document.getElementById("authMessage").textContent =
+      "⚠️ Sare fields fill karo.";
+    return;
+  }
+
+  localStorage.setItem("todayPlanUser", JSON.stringify({
+    name: name,
+    email: email,
+    password: password
+  }));
+
+  document.getElementById("authMessage").textContent =
+    "✅ Account create ho gya! Hun login karo.";
+
+  showLogin();
+}
+
+function loginUser() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const user = JSON.parse(localStorage.getItem("todayPlanUser"));
+
+  if (!user) {
+    document.getElementById("authMessage").textContent =
+      "❌ Pehla account create karo.";
+    return;
+  }
+
+  if (email === user.email && password === user.password) {
+    localStorage.setItem("todayPlanLoggedIn", "true");
+
+    document.getElementById("loginScreen").style.display = "none";
+
+    alert("Welcome " + user.name + " 👋");
+  } else {
+    document.getElementById("authMessage").textContent =
+      "❌ Email ya password galat hai.";
+  }
+}
+
+window.addEventListener("load", function() {
+  if (localStorage.getItem("todayPlanLoggedIn") === "true") {
+    document.getElementById("loginScreen").style.display = "none";
+  }
+});
+</script>
 </body>
 </html>
