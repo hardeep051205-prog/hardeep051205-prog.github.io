@@ -1113,6 +1113,160 @@ background:#1f2937;color:#f9fafb
   display: none;
 }
 </style>
+  <style>
+/* 💎 TODAY'S PLAN PRO */
+
+.pro-hero {
+  background: linear-gradient(135deg, #17142e, #4c2a85, #7c4dff);
+  color: white;
+  padding: 35px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  box-shadow: 0 20px 50px rgba(76,42,133,.25);
+}
+
+.pro-badge {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: .85;
+}
+
+.pro-hero h2 {
+  font-size: 34px;
+  margin: 10px 0;
+}
+
+.pro-hero p {
+  margin: 0;
+  opacity: .85;
+}
+
+.pro-crown {
+  font-size: 80px;
+}
+
+.pro-price-card {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  border-radius: 28px;
+  padding: 35px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(50,40,100,.12);
+}
+
+.pro-icon {
+  font-size: 55px;
+}
+
+.pro-price-card h2 {
+  font-size: 27px;
+  margin: 10px 0;
+}
+
+.pro-description {
+  color: #777;
+  line-height: 1.6;
+}
+
+.pro-price {
+  margin: 25px 0;
+}
+
+.pro-price span {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pro-price small {
+  color: #777;
+}
+
+.pro-features {
+  text-align: left;
+  display: grid;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.pro-features div {
+  padding: 15px;
+  border-radius: 15px;
+  background: #f7f5ff;
+}
+
+.pro-features b {
+  margin-left: 5px;
+}
+
+.pro-features span {
+  display: block;
+  color: #777;
+  font-size: 13px;
+  margin-left: 28px;
+  margin-top: 4px;
+}
+
+.pro-coming-btn {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  border-radius: 15px;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.pro-coming-btn:hover {
+  transform: translateY(-2px);
+}
+
+#proMessage {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.pro-note {
+  margin-top: 20px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 13px;
+}
+
+@media(max-width:700px) {
+
+  .pro-hero {
+    padding: 25px;
+  }
+
+  .pro-hero h2 {
+    font-size: 26px;
+  }
+
+  .pro-crown {
+    font-size: 55px;
+  }
+
+  .pro-price-card {
+    padding: 25px 18px;
+  }
+
+  .pro-price span {
+    font-size: 40px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -1186,10 +1340,81 @@ background:#1f2937;color:#f9fafb
 <button class="nav" onclick="showPage('stats',this)">📊 Statistics</button>
 <button class="nav" onclick="showPage('games')">🎮 Games</button>
 <button class="nav" onclick="showPage('plant')">🌱 My Plant</button>
+<button class="nav" onclick="showPage('pro')">💎 Today's Plan PRO</button>
 <button class="nav" onclick="showPage('notes',this)">📝 Notes</button>
 <button class="nav" onclick="showPage('reminders',this)">🔔 Reminders</button>
 <button class="nav" onclick="showPage('fatLoss')">🔥 Fat Loss
 </button>
+  <!-- 💎 TODAY'S PLAN PRO -->
+<section class="page" id="pro">
+
+  <div class="pro-hero">
+    <div>
+      <span class="pro-badge">✨ PREMIUM EXPERIENCE</span>
+      <h2>Today's Plan PRO</h2>
+      <p>Unlock the full power of your productivity.</p>
+    </div>
+
+    <div class="pro-crown">👑</div>
+  </div>
+
+  <div class="pro-price-card">
+
+    <div class="pro-icon">💎</div>
+
+    <h2>Take Your Productivity to the Next Level</h2>
+
+    <p class="pro-description">
+      Get advanced tools designed to help you plan better,
+      focus longer and achieve your goals.
+    </p>
+
+    <div class="pro-price">
+      <span>₹49</span>
+      <small>/ month</small>
+    </div>
+
+    <div class="pro-features">
+
+      <div>🤖 <b>Advanced PlanAI</b>
+        <span>Smart personalized planning</span>
+      </div>
+
+      <div>📊 <b>Advanced Statistics</b>
+        <span>Detailed productivity insights</span>
+      </div>
+
+      <div>⏱️ <b>Focus Mode</b>
+        <span>Powerful distraction-free sessions</span>
+      </div>
+
+      <div>🌱 <b>Advanced My Plant</b>
+        <span>More plants and growth levels</span>
+      </div>
+
+      <div>🎨 <b>Premium Themes</b>
+        <span>Beautiful exclusive themes</span>
+      </div>
+
+      <div>☁️ <b>Cloud Sync</b>
+        <span>Coming in a future update</span>
+      </div>
+
+    </div>
+
+    <button class="pro-coming-btn" onclick="showProMessage()">
+      🚀 Coming Soon
+    </button>
+
+    <p id="proMessage"></p>
+
+    <div class="pro-note">
+      🔒 Payment will be added only after the PRO system is ready.
+    </div>
+
+  </div>
+
+</section>
 <button class="nav" onclick="showPage('settings',this)">⚙️ Settings</button>
   <!-- GAMES -->
 <section class="page" id="games">
@@ -3687,6 +3912,16 @@ function saveSafeTasks(tasks) {
     "tasks",
     JSON.stringify(tasks)
   );
+}
+</script>
+  <script>
+function showProMessage() {
+
+  const message = document.getElementById("proMessage");
+
+  message.textContent =
+    "🚀 Today's Plan PRO is coming soon! Stay tuned. 💎";
+
 }
 </script>
 </body>
