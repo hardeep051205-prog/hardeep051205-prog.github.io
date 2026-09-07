@@ -3924,6 +3924,27 @@ function showProMessage() {
 
 }
 </script>
+  <script>
+/* 📍 Keep selected page at the top */
+
+const oldShowPage = window.showPage;
+
+window.showPage = function(pageId) {
+
+  oldShowPage(pageId);
+
+  setTimeout(function() {
+    const page = document.getElementById(pageId);
+
+    if (page) {
+      page.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, 50);
+};
+</script>
 </body>
   <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
   ☰
