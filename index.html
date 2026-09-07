@@ -552,52 +552,7 @@ async function askPlanAI(prompt) {
   }
 }
 </script> 
-  <!-- PLAN AI -->
-<section id="planAI" style="
-  margin:20px;
-  padding:25px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white;
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-">
-  <h2>🤖 PlanAI</h2>
-  <p>Apne ajj de tasks likho, AI tuhade layi smart plan banavega.</p>
-
-  <textarea id="aiPrompt" placeholder="Example: Ajj menu 3 ghante study, gym, assignment te rest karna hai..." style="
-    width:100%;
-    min-height:120px;
-    padding:15px;
-    border:0;
-    border-radius:14px;
-    resize:vertical;
-    font-size:16px;
-    box-sizing:border-box;
-  "></textarea>
-
-  <button onclick="runPlanAI()" style="
-    margin-top:12px;
-    padding:13px 22px;
-    border:0;
-    border-radius:12px;
-    background:white;
-    color:#667eea;
-    font-weight:bold;
-    font-size:16px;
-    cursor:pointer;
-  ">
-    ✨ Create My Plan
-  </button>
-
-  <div id="aiResult" style="
-    margin-top:20px;
-    padding:18px;
-    background:rgba(255,255,255,.15);
-    border-radius:14px;
-    white-space:pre-wrap;
-    display:none;
-  "></div>
-</section>
+  
 
 <script>
 async function runPlanAI() {
@@ -636,6 +591,194 @@ Keep the plan clear and easy to follow.
     result.innerText = "❌ AI naal connection nahi ho saki.";
   }
 }
+</script> <!-- PROFESSIONAL PLANAI -->
+<section id="planAI" class="page-section">
+  <div style="
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    border-radius:24px;
+    padding:28px;
+    color:white;
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+  ">
+
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+      <div style="
+        width:52px;height:52px;border-radius:16px;
+        background:rgba(255,255,255,.2);
+        display:flex;align-items:center;justify-content:center;
+        font-size:28px;
+      ">🤖</div>
+
+      <div>
+        <h2 style="margin:0;">PlanAI</h2>
+        <p style="margin:4px 0 0;opacity:.85;">
+          Your personal AI productivity assistant
+        </p>
+      </div>
+    </div>
+
+    <div style="
+      background:rgba(255,255,255,.12);
+      padding:14px 16px;
+      border-radius:14px;
+      margin:18px 0;
+    ">
+      💡 <b>Tip:</b> Apne tasks, study, work, goals ya free time bare dasso.
+      PlanAI tuhade layi smart schedule banavega.
+    </div>
+
+    <textarea id="aiPrompt" placeholder="Example:
+Ajj menu 3 ghante study karni aa, mathematics assignment complete karni aa, gym jana aa te shaam nu 2 ghante free time chahida..." style="
+      width:100%;
+      min-height:145px;
+      box-sizing:border-box;
+      border:none;
+      outline:none;
+      border-radius:16px;
+      padding:17px;
+      font-size:16px;
+      resize:vertical;
+      background:white;
+      color:#222;
+    "></textarea>
+
+    <div style="
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    ">
+
+      <button onclick="runPlanAI()" style="
+        border:none;
+        border-radius:13px;
+        padding:14px 22px;
+        background:white;
+        color:#667eea;
+        font-weight:700;
+        font-size:15px;
+        cursor:pointer;
+      ">
+        ✨ Create My Plan
+      </button>
+
+      <button onclick="clearPlanAI()" style="
+        border:1px solid rgba(255,255,255,.4);
+        border-radius:13px;
+        padding:14px 20px;
+        background:rgba(255,255,255,.12);
+        color:white;
+        font-weight:600;
+        cursor:pointer;
+      ">
+        Clear
+      </button>
+    </div>
+
+    <div id="aiLoading" style="
+      display:none;
+      margin-top:20px;
+      padding:18px;
+      border-radius:16px;
+      background:rgba(255,255,255,.14);
+    ">
+      🤖 PlanAI is thinking...
+    </div>
+
+    <div id="aiResult" style="
+      display:none;
+      margin-top:20px;
+      padding:22px;
+      border-radius:18px;
+      background:white;
+      color:#222;
+      line-height:1.7;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    "></div>
+
+  </div>
+</section>
+
+<script>
+async function runPlanAI() {
+
+  const prompt = document.getElementById("aiPrompt").value.trim();
+  const result = document.getElementById("aiResult");
+  const loading = document.getElementById("aiLoading");
+
+  if (!prompt) {
+    alert("Pehla apne tasks ya ajj da plan likho 🙂");
+    return;
+  }
+
+  result.style.display = "none";
+  loading.style.display = "block";
+
+  const aiPrompt = `
+You are PlanAI, a professional personal productivity assistant.
+
+The user wants help planning their day.
+
+USER INFORMATION:
+${prompt}
+
+Create a highly practical daily plan.
+
+Include:
+
+📌 TOP PRIORITIES
+- Identify the most important tasks.
+- Put urgent and important work first.
+
+⏰ SMART TIMETABLE
+- Create a realistic timetable.
+- Include reasonable breaks.
+- Do not overload the user.
+
+🎯 GOALS
+- Explain how today's tasks help their goals.
+
+🧠 PRODUCTIVITY TIPS
+- Give 3 short useful tips.
+
+✅ FIRST ACTION
+- Tell the user exactly what they should start doing right now.
+
+💪 MOTIVATION
+- End with a short motivational message.
+
+Keep everything clear, realistic and easy to follow.
+`;
+
+  try {
+
+    const answer = await askPlanAI(aiPrompt);
+
+    loading.style.display = "none";
+    result.style.display = "block";
+
+    result.innerText =
+      "🤖 PLANAI — YOUR DAILY PLAN\n\n" + answer;
+
+  } catch (error) {
+
+    loading.style.display = "none";
+    result.style.display = "block";
+
+    result.innerText =
+      "❌ AI naal connection nahi ho saki.\n\nPlease try again.";
+
+    console.error(error);
+  }
+}
+
+function clearPlanAI() {
+  document.getElementById("aiPrompt").value = "";
+  document.getElementById("aiResult").style.display = "none";
+  document.getElementById("aiLoading").style.display = "none";
+}
 </script>
+  
 </body>
 </html>
