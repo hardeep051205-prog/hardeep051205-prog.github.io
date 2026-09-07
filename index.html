@@ -3,776 +3,523 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Today's Plan</title>
+<title>Today's Plan | Hardeep Singh</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-    font-family:Arial, sans-serif;
-    background:#f4f6fb;
-    color:#202124;
-    min-height:100vh;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#fdf2f8,#ecfeff);
+color:#172033;min-height:100vh
 }
-
-body.dark{
-    background:#121318;
-    color:#f5f5f5;
-}
-
-header{
-    background:white;
-    padding:18px 7%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid #eee;
-}
-
-.dark header{
-    background:#1b1d24;
-    border-color:#292c35;
-}
-
-.logo{
-    font-size:24px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#667eea;
-}
-
-.header-buttons button{
-    border:0;
-    background:#f0f1f5;
-    padding:10px 13px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:17px;
-}
-
-.dark .header-buttons button{
-    background:#292c35;
-    color:white;
-}
-
-.container{
-    max-width:1100px;
-    margin:35px auto;
-    padding:0 20px;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
 
 .welcome{
-    margin-bottom:25px;
+min-height:100vh;display:flex;align-items:center;justify-content:center;
+padding:25px;text-align:center
+}
+.welcome-box{
+max-width:650px;width:100%;padding:55px 30px;border-radius:30px;
+background:rgba(255,255,255,.82);box-shadow:0 20px 60px #0002;
+backdrop-filter:blur(15px)
+}
+.logo{font-size:60px;margin-bottom:15px}
+.welcome h1{font-size:42px;margin-bottom:10px}
+.welcome p{font-size:18px;color:#667085;margin-bottom:30px}
+.by{font-weight:bold;color:#6d5dfc;margin-bottom:28px}
+.start{
+padding:15px 30px;border-radius:14px;color:white;
+background:linear-gradient(135deg,#6d5dfc,#ec4899);
+font-weight:bold;box-shadow:0 10px 25px #6d5dfc44
 }
 
-.welcome h1{
-    font-size:32px;
-    margin-bottom:7px;
+.app{display:none;min-height:100vh}
+header{
+background:rgba(255,255,255,.9);padding:18px 25px;
+display:flex;justify-content:space-between;align-items:center;
+position:sticky;top:0;z-index:10;box-shadow:0 3px 20px #0001
 }
+.brand{font-size:22px;font-weight:bold}
+.brand span{color:#6d5dfc}
+.menu-btn{background:#f1f0ff;padding:10px 14px;border-radius:10px}
 
-.welcome p{
-    color:#777;
+.layout{display:flex}
+.sidebar{
+width:230px;min-height:calc(100vh - 70px);background:#fff;padding:20px;
+border-right:1px solid #eee
 }
-
-.dark .welcome p{
-    color:#aaa;
+.nav{
+width:100%;text-align:left;padding:13px;margin:5px 0;border-radius:12px;
+background:transparent;color:#475467
 }
+.nav:hover,.nav.active{background:#eeeaff;color:#5b4be8;font-weight:bold}
 
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-bottom:25px;
+.main{flex:1;padding:30px;max-width:1250px;margin:auto;width:100%}
+.page{display:none;animation:fade .3s}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.hero{
+padding:28px;border-radius:24px;color:white;
+background:linear-gradient(135deg,#6d5dfc,#ec4899);
+margin-bottom:25px;box-shadow:0 15px 35px #6d5dfc33
 }
+.hero h2{font-size:30px;margin-bottom:7px}
 
-.stat{
-    background:white;
-    padding:20px;
-    border-radius:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
+.cards{
+display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:25px
 }
-
-.dark .stat,
-.dark .main-card{
-    background:#1b1d24;
+.card{
+background:white;padding:22px;border-radius:20px;box-shadow:0 8px 25px #0000000d
 }
+.card small{color:#667085}
+.number{font-size:30px;font-weight:bold;margin-top:8px}
 
-.stat-title{
-    color:#777;
-    font-size:14px;
+.section-title{margin:25px 0 15px;font-size:23px}
+.form{
+background:white;padding:20px;border-radius:20px;margin-bottom:20px;
+box-shadow:0 8px 25px #0000000d
 }
-
-.dark .stat-title{
-    color:#aaa;
+.row{display:flex;gap:10px;flex-wrap:wrap}
+input,select,textarea{
+border:1px solid #ddd;padding:12px;border-radius:11px;outline:none;
+background:#fff
 }
-
-.stat-number{
-    font-size:28px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-.main-card{
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.add-area{
-    display:grid;
-    grid-template-columns:1fr 150px 120px;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-input,select{
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:11px;
-    outline:none;
-    font-size:15px;
-    background:white;
-}
-
-.dark input,
-.dark select{
-    background:#252832;
-    color:white;
-    border-color:#3a3d47;
-}
-
-.add-btn{
-    background:#667eea;
-    color:white;
-    border:0;
-    border-radius:11px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.add-btn:hover{
-    background:#5568d8;
-}
-
-.progress-box{
-    margin-bottom:25px;
-}
-
-.progress-top{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-    font-size:14px;
-}
-
-.progress{
-    height:10px;
-    background:#e8e9ee;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:#667eea;
-    transition:.3s;
-}
-
-.filters{
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.filters button{
-    padding:9px 15px;
-    border:0;
-    border-radius:20px;
-    cursor:pointer;
-    background:#f0f1f5;
-}
-
-.dark .filters button{
-    background:#292c35;
-    color:white;
-}
-
-.filters button.active{
-    background:#667eea;
-    color:white;
+input:focus,select:focus,textarea:focus{border-color:#6d5dfc}
+.task-input{flex:1;min-width:200px}
+.add{
+background:#6d5dfc;color:#fff;padding:12px 20px;border-radius:11px;font-weight:bold
 }
 
 .task{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:15px;
-    margin-bottom:10px;
-    border:1px solid #eee;
-    border-radius:14px;
-    transition:.2s;
+display:flex;align-items:center;gap:12px;padding:16px;margin:10px 0;
+background:#fff;border-radius:15px;box-shadow:0 5px 15px #00000009
+}
+.task.done .task-name{text-decoration:line-through;color:#98a2b3}
+.task-name{flex:1;font-weight:600}
+.priority{font-size:12px;padding:6px 9px;border-radius:20px;background:#eee}
+.high{background:#fee4e2;color:#b42318}
+.medium{background:#fff0c2;color:#8a6100}
+.low{background:#dcfae6;color:#067647}
+.delete{background:#fee4e2;color:#b42318;padding:7px 10px;border-radius:9px}
+
+.progress{
+height:12px;background:#eee;border-radius:20px;overflow:hidden;margin-top:12px
+}
+.progress-bar{
+height:100%;width:0;background:linear-gradient(90deg,#6d5dfc,#ec4899);
+transition:.3s
 }
 
-.dark .task{
-    border-color:#30333d;
+.calendar{
+display:grid;grid-template-columns:repeat(7,1fr);gap:7px
+}
+.day{
+background:#fff;padding:15px;text-align:center;border-radius:10px;
+min-height:55px;cursor:pointer
+}
+.day:hover{background:#eeeaff}
+.day.today{background:#6d5dfc;color:white;font-weight:bold}
+
+.goal,.note,.reminder{
+background:white;padding:18px;border-radius:16px;margin:10px 0;
+box-shadow:0 5px 15px #00000009
 }
 
-.task:hover{
-    transform:translateY(-1px);
+.theme-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.theme-buttons button{padding:12px 18px;border-radius:12px;color:white}
+.purple{background:#6d5dfc}.pink{background:#ec4899}
+.blue{background:#2563eb}.green{background:#059669}
+
+.dark{
+background:#111827;color:#f9fafb
 }
-
-.check{
-    width:20px;
-    height:20px;
-    cursor:pointer;
+.dark header,.dark .sidebar,.dark .card,.dark .form,.dark .task,
+.dark .goal,.dark .note,.dark .reminder,.dark .day,.dark .welcome-box{
+background:#1f2937;color:#f9fafb
 }
+.dark input,.dark select,.dark textarea{background:#111827;color:white;border-color:#374151}
+.dark .sidebar{border-color:#374151}
 
-.task-content{
-    flex:1;
+@media(max-width:850px){
+.sidebar{display:none}
+.cards{grid-template-columns:repeat(2,1fr)}
+.main{padding:18px}
+.welcome h1{font-size:32px}
 }
-
-.task-title{
-    font-size:16px;
-    font-weight:600;
-}
-
-.task-info{
-    display:flex;
-    gap:10px;
-    margin-top:6px;
-    font-size:12px;
-    color:#777;
-}
-
-.completed .task-title{
-    text-decoration:line-through;
-    color:#999;
-}
-
-.priority{
-    padding:5px 9px;
-    border-radius:8px;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.high{
-    background:#ffe1e1;
-    color:#d33;
-}
-
-.medium{
-    background:#fff0c7;
-    color:#9a7200;
-}
-
-.low{
-    background:#dff6e5;
-    color:#21863a;
-}
-
-.delete{
-    border:0;
-    background:#ffe5e5;
-    color:#d33;
-    width:34px;
-    height:34px;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-.empty{
-    text-align:center;
-    padding:40px 10px;
-    color:#999;
-}
-
-.clear{
-    margin-top:15px;
-    width:100%;
-    padding:12px;
-    border:0;
-    border-radius:10px;
-    cursor:pointer;
-    background:#f0f1f5;
-}
-
-.dark .clear{
-    background:#292c35;
-    color:white;
-}
-
-@media(max-width:700px){
-
-    header{
-        padding:15px 20px;
-    }
-
-    .dashboard{
-        grid-template-columns:1fr;
-    }
-
-    .add-area{
-        grid-template-columns:1fr;
-    }
-
-    .add-btn{
-        padding:14px;
-    }
-
-    .welcome h1{
-        font-size:27px;
-    }
-
-    .main-card{
-        padding:18px;
-    }
+@media(max-width:500px){
+.cards{grid-template-columns:1fr 1fr}
+.card{padding:15px}
+.number{font-size:24px}
+.hero h2{font-size:24px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- WELCOME SCREEN -->
+<section class="welcome" id="welcome">
+<div class="welcome-box">
+<div class="logo">📋</div>
+<h1>Welcome to Today's Plan</h1>
+<p>Plan your day. Track your goals. Stay productive.</p>
+<div class="by">By Hardeep Singh</div>
+<button class="start" onclick="openApp()">🚀 Get Started</button>
+</div>
+</section>
+
+<!-- APP -->
+<div class="app" id="app">
+
 <header>
-
-    <div class="logo">
-        📅 Today's <span>Plan</span>
-    </div>
-
-    <div class="header-buttons">
-        <button onclick="toggleDark()">🌙</button>
-    </div>
-
+<div class="brand">📋 Today's <span>Plan</span></div>
+<div id="date"></div>
 </header>
 
+<div class="layout">
 
-<div class="container">
+<aside class="sidebar">
+<button class="nav active" onclick="showPage('home',this)">🏠 Home</button>
+<button class="nav" onclick="showPage('plans',this)">📋 My Plans</button>
+<button class="nav" onclick="showPage('calendar',this)">📅 Calendar</button>
+<button class="nav" onclick="showPage('goals',this)">🎯 Goals</button>
+<button class="nav" onclick="showPage('stats',this)">📊 Statistics</button>
+<button class="nav" onclick="showPage('notes',this)">📝 Notes</button>
+<button class="nav" onclick="showPage('reminders',this)">🔔 Reminders</button>
+<button class="nav" onclick="showPage('settings',this)">⚙️ Settings</button>
+</aside>
 
-    <div class="welcome">
-        <h1>Plan your day 🚀</h1>
-        <p id="date"></p>
-    </div>
+<main class="main">
 
-
-    <div class="dashboard">
-
-        <div class="stat">
-            <div class="stat-title">Total Tasks</div>
-            <div class="stat-number" id="total">0</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-title">Completed</div>
-            <div class="stat-number" id="completed">0</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-title">Remaining</div>
-            <div class="stat-number" id="remaining">0</div>
-        </div>
-
-    </div>
-
-
-    <div class="main-card">
-
-        <div class="add-area">
-
-            <input
-                id="taskInput"
-                placeholder="What do you need to do?"
-                onkeydown="enterAdd(event)"
-            >
-
-            <select id="priority">
-                <option value="low">Low Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="high">High Priority</option>
-            </select>
-
-            <button class="add-btn" onclick="addTask()">
-                + Add Task
-            </button>
-
-        </div>
-
-
-        <div class="progress-box">
-
-            <div class="progress-top">
-                <span>Today's Progress</span>
-                <span id="percent">0%</span>
-            </div>
-
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-
-        </div>
-
-
-        <div class="filters">
-
-            <button class="active" onclick="filterTasks('all',this)">
-                All
-            </button>
-
-            <button onclick="filterTasks('active',this)">
-                Active
-            </button>
-
-            <button onclick="filterTasks('completed',this)">
-                Completed
-            </button>
-
-        </div>
-
-
-        <div id="taskList"></div>
-
-
-        <button class="clear" onclick="clearCompleted()">
-            🧹 Clear Completed
-        </button>
-
-    </div>
-
+<!-- HOME -->
+<section class="page active" id="home">
+<div class="hero">
+<h2>Good Day! 👋</h2>
+<p>Let's make today productive.</p>
 </div>
 
+<div class="cards">
+<div class="card"><small>Total Tasks</small><div class="number" id="total">0</div></div>
+<div class="card"><small>Completed</small><div class="number" id="completed">0</div></div>
+<div class="card"><small>Remaining</small><div class="number" id="remaining">0</div></div>
+<div class="card"><small>Progress</small><div class="number" id="percent">0%</div></div>
+</div>
+
+<div class="card">
+<b>Today's Progress</b>
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+</div>
+
+<h3 class="section-title">Quick Add Task</h3>
+<div class="form">
+<div class="row">
+<input class="task-input" id="taskInput" placeholder="What do you need to do?">
+<select id="priority">
+<option value="low">Low Priority</option>
+<option value="medium">Medium Priority</option>
+<option value="high">High Priority</option>
+</select>
+<input type="time" id="taskTime">
+<button class="add" onclick="addTask()">＋ Add Task</button>
+</div>
+</div>
+
+<div id="homeTasks"></div>
+</section>
+
+<!-- PLANS -->
+<section class="page" id="plans">
+<h2>📋 My Plans</h2>
+<p style="margin:8px 0 20px;color:#667085">Manage all your daily tasks.</p>
+
+<div class="form">
+<input class="task-input" id="search" placeholder="🔍 Search tasks..." oninput="renderTasks()">
+</div>
+<div id="allTasks"></div>
+</section>
+
+<!-- CALENDAR -->
+<section class="page" id="calendar">
+<h2>📅 Calendar</h2>
+<p style="margin:8px 0 20px">Your monthly planner</p>
+<div class="calendar" id="calendarGrid"></div>
+</section>
+
+<!-- GOALS -->
+<section class="page" id="goals">
+<h2>🎯 Goals</h2>
+<div class="form">
+<div class="row">
+<input class="task-input" id="goalInput" placeholder="Enter a new goal...">
+<button class="add" onclick="addGoal()">＋ Add Goal</button>
+</div>
+</div>
+<div id="goalList"></div>
+</section>
+
+<!-- STATS -->
+<section class="page" id="stats">
+<h2>📊 Statistics</h2>
+<div class="cards">
+<div class="card"><small>Total Tasks</small><div class="number" id="sTotal">0</div></div>
+<div class="card"><small>Completed</small><div class="number" id="sDone">0</div></div>
+<div class="card"><small>Pending</small><div class="number" id="sPending">0</div></div>
+<div class="card"><small>Success Rate</small><div class="number" id="sRate">0%</div></div>
+</div>
+<div class="card">
+<h3>🏆 Productivity</h3>
+<p style="margin-top:10px">Keep completing your tasks and build a productive routine!</p>
+</div>
+</section>
+
+<!-- NOTES -->
+<section class="page" id="notes">
+<h2>📝 Notes</h2>
+<div class="form">
+<textarea id="noteInput" rows="5" style="width:100%" placeholder="Write your notes here..."></textarea>
+<button class="add" style="margin-top:10px" onclick="addNote()">＋ Save Note</button>
+</div>
+<div id="noteList"></div>
+</section>
+
+<!-- REMINDERS -->
+<section class="page" id="reminders">
+<h2>🔔 Reminders</h2>
+<div class="form">
+<p>Tasks with a time are shown here:</p>
+</div>
+<div id="reminderList"></div>
+</section>
+
+<!-- SETTINGS -->
+<section class="page" id="settings">
+<h2>⚙️ Settings</h2>
+
+<div class="form">
+<h3>🌈 Choose Theme</h3>
+<p style="margin:8px 0 15px">Choose your favorite style.</p>
+<div class="theme-buttons">
+<button class="purple" onclick="setTheme('purple')">Purple</button>
+<button class="pink" onclick="setTheme('pink')">Pink</button>
+<button class="blue" onclick="setTheme('blue')">Blue</button>
+<button class="green" onclick="setTheme('green')">Green</button>
+</div>
+</div>
+
+<div class="form">
+<h3>🌙 Dark Mode</h3>
+<button class="add" style="margin-top:12px" onclick="toggleDark()">Toggle Dark Mode</button>
+</div>
+
+<div class="form">
+<h3>🗑️ Data</h3>
+<button class="delete" style="margin-top:12px" onclick="clearCompleted()">Clear Completed Tasks</button>
+</div>
+
+<div class="form" style="text-align:center">
+<h3>Today's Plan</h3>
+<p style="margin-top:8px">Created with ❤️ by <b>Hardeep Singh</b></p>
+</div>
+</section>
+
+</main>
+</div>
+</div>
 
 <script>
-
-let tasks =
-JSON.parse(localStorage.getItem("todaysPlan")) || [];
-
-let currentFilter = "all";
-
+let tasks=JSON.parse(localStorage.getItem("tasks")||"[]");
+let goals=JSON.parse(localStorage.getItem("goals")||"[]");
+let notes=JSON.parse(localStorage.getItem("notes")||"[]");
 
 function save(){
-
-    localStorage.setItem(
-        "todaysPlan",
-        JSON.stringify(tasks)
-    );
-
+localStorage.setItem("tasks",JSON.stringify(tasks));
+localStorage.setItem("goals",JSON.stringify(goals));
+localStorage.setItem("notes",JSON.stringify(notes));
 }
 
+function openApp(){
+document.getElementById("welcome").style.display="none";
+document.getElementById("app").style.display="block";
+update();
+}
+
+function showPage(id,btn){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+btn.classList.add("active");
+}
 
 function addTask(){
+let input=document.getElementById("taskInput");
+let name=input.value.trim();
+if(!name)return alert("Please enter a task!");
 
-    const input =
-    document.getElementById("taskInput");
+tasks.push({
+id:Date.now(),
+name:name,
+priority:document.getElementById("priority").value,
+time:document.getElementById("taskTime").value,
+done:false
+});
 
-    const priority =
-    document.getElementById("priority").value;
-
-    const text =
-    input.value.trim();
-
-    if(!text){
-
-        alert("Please enter a task!");
-
-        return;
-    }
-
-
-    tasks.push({
-
-        id:Date.now(),
-
-        text:text,
-
-        priority:priority,
-
-        completed:false
-
-    });
-
-
-    input.value="";
-
-    save();
-
-    display();
-
+input.value="";
+document.getElementById("taskTime").value="";
+save();update();
 }
-
-
-function enterAdd(e){
-
-    if(e.key==="Enter"){
-
-        addTask();
-
-    }
-
-}
-
 
 function toggleTask(id){
-
-    tasks =
-    tasks.map(task=>{
-
-        if(task.id===id){
-
-            task.completed =
-            !task.completed;
-
-        }
-
-        return task;
-
-    });
-
-
-    save();
-
-    display();
-
+let t=tasks.find(x=>x.id===id);
+if(t)t.done=!t.done;
+save();update();
 }
-
 
 function deleteTask(id){
-
-    tasks =
-    tasks.filter(task=>task.id!==id);
-
-    save();
-
-    display();
-
+tasks=tasks.filter(x=>x.id!==id);
+save();update();
 }
 
+function taskHTML(t){
+return `
+<div class="task ${t.done?'done':''}">
+<input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})">
+<div class="task-name">${escapeHTML(t.name)} ${t.time?`<small>⏰ ${t.time}</small>`:""}</div>
+<span class="priority ${t.priority}">${t.priority}</span>
+<button class="delete" onclick="deleteTask(${t.id})">🗑</button>
+</div>`;
+}
+
+function renderTasks(){
+let search=(document.getElementById("search")?.value||"").toLowerCase();
+let filtered=tasks.filter(t=>t.name.toLowerCase().includes(search));
+let html=filtered.length?filtered.map(taskHTML).join(""):"<div class='card'>No tasks found. 🎉</div>";
+document.getElementById("allTasks").innerHTML=html;
+document.getElementById("homeTasks").innerHTML=tasks.length?tasks.slice().reverse().slice(0,5).map(taskHTML).join(""):"<div class='card'>No tasks yet. Add your first task! 🚀</div>";
+}
+
+function update(){
+let total=tasks.length;
+let done=tasks.filter(t=>t.done).length;
+let pending=total-done;
+let percent=total?Math.round(done/total*100):0;
+
+document.getElementById("total").textContent=total;
+document.getElementById("completed").textContent=done;
+document.getElementById("remaining").textContent=pending;
+document.getElementById("percent").textContent=percent+"%";
+document.getElementById("bar").style.width=percent+"%";
+
+document.getElementById("sTotal").textContent=total;
+document.getElementById("sDone").textContent=done;
+document.getElementById("sPending").textContent=pending;
+document.getElementById("sRate").textContent=percent+"%";
+
+renderTasks();
+renderGoals();
+renderNotes();
+renderReminders();
+makeCalendar();
+
+document.getElementById("date").textContent=new Date().toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"});
+}
+
+function addGoal(){
+let x=document.getElementById("goalInput").value.trim();
+if(!x)return;
+goals.push({id:Date.now(),name:x,done:false});
+document.getElementById("goalInput").value="";
+save();update();
+}
+
+function toggleGoal(id){
+let g=goals.find(x=>x.id===id);
+if(g)g.done=!g.done;
+save();update();
+}
+
+function renderGoals(){
+document.getElementById("goalList").innerHTML=goals.length?
+goals.map(g=>`
+<div class="goal">
+<input type="checkbox" ${g.done?"checked":""} onchange="toggleGoal(${g.id})">
+<b style="${g.done?'text-decoration:line-through;color:#98a2b3':''}">${escapeHTML(g.name)}</b>
+</div>`).join(""):"<div class='card'>No goals added yet 🎯</div>";
+}
+
+function addNote(){
+let x=document.getElementById("noteInput").value.trim();
+if(!x)return;
+notes.unshift({id:Date.now(),text:x});
+document.getElementById("noteInput").value="";
+save();update();
+}
+
+function deleteNote(id){
+notes=notes.filter(n=>n.id!==id);
+save();update();
+}
+
+function renderNotes(){
+document.getElementById("noteList").innerHTML=notes.length?
+notes.map(n=>`
+<div class="note">
+<p>${escapeHTML(n.text)}</p>
+<button class="delete" style="margin-top:10px" onclick="deleteNote(${n.id})">Delete</button>
+</div>`).join(""):"<div class='card'>No notes yet 📝</div>";
+}
+
+function renderReminders(){
+let r=tasks.filter(t=>t.time&&!t.done);
+document.getElementById("reminderList").innerHTML=r.length?
+r.map(t=>`<div class="reminder">🔔 <b>${escapeHTML(t.name)}</b> — ⏰ ${t.time}</div>`).join("")
+:"<div class='card'>No upcoming reminders.</div>";
+}
+
+function makeCalendar(){
+let grid=document.getElementById("calendarGrid");
+let now=new Date();
+let year=now.getFullYear(),month=now.getMonth();
+let first=new Date(year,month,1).getDay();
+let days=new Date(year,month+1,0).getDate();
+let html=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>`<b style="text-align:center">${x}</b>`).join("");
+for(let i=0;i<first;i++)html+="<div></div>";
+for(let d=1;d<=days;d++){
+let today=d===now.getDate();
+html+=`<div class="day ${today?'today':''}">${d}</div>`;
+}
+grid.innerHTML=html;
+}
 
 function clearCompleted(){
-
-    tasks =
-    tasks.filter(task=>!task.completed);
-
-    save();
-
-    display();
-
+tasks=tasks.filter(t=>!t.done);
+save();update();
 }
-
-
-function filterTasks(type,button){
-
-    currentFilter=type;
-
-    document
-    .querySelectorAll(".filters button")
-    .forEach(btn=>btn.classList.remove("active"));
-
-    button.classList.add("active");
-
-    display();
-
-}
-
-
-function display(){
-
-    const list =
-    document.getElementById("taskList");
-
-    list.innerHTML="";
-
-
-    let filtered=tasks;
-
-
-    if(currentFilter==="active"){
-
-        filtered =
-        tasks.filter(task=>!task.completed);
-
-    }
-
-
-    if(currentFilter==="completed"){
-
-        filtered =
-        tasks.filter(task=>task.completed);
-
-    }
-
-
-    if(filtered.length===0){
-
-        list.innerHTML=
-        `<div class="empty">
-            ✨ No tasks here
-        </div>`;
-
-    }
-
-
-    filtered.forEach(task=>{
-
-        const div =
-        document.createElement("div");
-
-        div.className =
-        "task " +
-        (task.completed ? "completed":"");
-
-
-        div.innerHTML=`
-
-            <input
-                class="check"
-                type="checkbox"
-                ${task.completed ? "checked":""}
-                onchange="toggleTask(${task.id})"
-            >
-
-            <div class="task-content">
-
-                <div class="task-title">
-                    ${escapeHTML(task.text)}
-                </div>
-
-                <div class="task-info">
-
-                    <span class="priority ${task.priority}">
-                        ${task.priority.toUpperCase()}
-                    </span>
-
-                    <span>
-                        Today
-                    </span>
-
-                </div>
-
-            </div>
-
-            <button
-                class="delete"
-                onclick="deleteTask(${task.id})">
-
-                🗑️
-
-            </button>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
-
-    updateStats();
-
-}
-
-
-function updateStats(){
-
-    const total=tasks.length;
-
-    const completed=
-    tasks.filter(t=>t.completed).length;
-
-    const remaining=
-    total-completed;
-
-
-    const percent=
-    total===0
-    ?0
-    :Math.round((completed/total)*100);
-
-
-    document.getElementById("total")
-    .innerText=total;
-
-    document.getElementById("completed")
-    .innerText=completed;
-
-    document.getElementById("remaining")
-    .innerText=remaining;
-
-    document.getElementById("percent")
-    .innerText=percent+"%";
-
-    document.getElementById("progressBar")
-    .style.width=percent+"%";
-
-}
-
 
 function toggleDark(){
-
-    document.body.classList.toggle("dark");
-
-    localStorage.setItem(
-        "darkMode",
-        document.body.classList.contains("dark")
-    );
-
+document.body.classList.toggle("dark");
+localStorage.setItem("dark",document.body.classList.contains("dark"));
 }
 
-
-function escapeHTML(text){
-
-    const div=
-    document.createElement("div");
-
-    div.textContent=text;
-
-    return div.innerHTML;
-
+function setTheme(t){
+let colors={
+purple:["#6d5dfc","#ec4899"],
+pink:["#ec4899","#f97316"],
+blue:["#2563eb","#06b6d4"],
+green:["#059669","#84cc16"]
+};
+let c=colors[t];
+document.documentElement.style.setProperty("--main",c[0]);
+document.querySelectorAll(".add").forEach(x=>x.style.background=c[0]);
 }
 
-
-function showDate(){
-
-    const date=
-    new Date();
-
-    document.getElementById("date")
-    .innerText=
-    date.toLocaleDateString(
-        "en-IN",
-        {
-            weekday:"long",
-            year:"numeric",
-            month:"long",
-            day:"numeric"
-        }
-    );
-
+function escapeHTML(s){
+return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 
-
-if(
-    localStorage.getItem("darkMode")==="true"
-){
-
-    document.body.classList.add("dark");
-
-}
-
-
-showDate();
-
-display();
-
+if(localStorage.getItem("dark")==="true")document.body.classList.add("dark");
 </script>
-<div class="credit">Produced by Hardeep Singh</div>
+
 </body>
 </html>
-
