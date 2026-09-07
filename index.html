@@ -1576,7 +1576,7 @@ background:#1f2937;color:#f9fafb
 </div>
 
 <script>
-let tasks=JSON.parse(localStorage.getItem("tasks")||"[]");
+const tasks = getSafeTasks();
 let goals=JSON.parse(localStorage.getItem("goals")||"[]");
 let notes=JSON.parse(localStorage.getItem("notes")||"[]");
 
@@ -3637,6 +3637,58 @@ document.addEventListener("click", function(e) {
 
 });
 </script> 
+  <script>
+/* 🛡️ SAFE TASK DATA HANDLER */
+
+function safeParseTasks(rawData) {
+  if (!rawData) return [];
+
+  try {
+    const parsed = JSON.parse(rawData);
+
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed
+      .filter(task => task && typeof task === "object")
+      .map((task, index) => ({
+        id: task.id ?? Date.now() + index,
+        text: typeof task.text === "string" ? task.text : "",
+        completed: Boolean(task.completed),
+        priority:
+          task.priority === "high" ||
+          task.priority === "medium" ||
+          task.priority === "low"
+            ? task.priority
+            : "low",
+        time: typeof task.time === "string" ? task.time : ""
+      }))
+      .filter(task => task.text.trim() !== "");
+      
+  } catch (error) {
+    console.warn("Invalid saved task data. Using empty task list.");
+    return [];
+  }
+}
+
+function getSafeTasks() {
+  return safeParseTasks(
+    localStorage.getItem("tasks")
+  );
+}
+
+function saveSafeTasks(tasks) {
+  if (!Array.isArray(tasks)) {
+    tasks = [];
+  }
+
+  localStorage.setItem(
+    "tasks",
+    JSON.stringify(tasks)
+  );
+}
+</script>
 </body>
   <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
   ☰
