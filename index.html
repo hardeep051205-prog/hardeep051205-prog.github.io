@@ -4856,6 +4856,139 @@ function setDNA(textId, barId, value){
 calculateProductivityDNA();
 
 </script>
+  <script>
+
+function updatePremiumHome(){
+
+  const now = new Date();
+
+  const hour = now.getHours();
+
+  let greeting = "Good Evening";
+
+  if(hour < 12){
+    greeting = "Good Morning";
+  }
+  else if(hour < 17){
+    greeting = "Good Afternoon";
+  }
+
+  const greetingEl = document.getElementById("greeting");
+
+  if(greetingEl){
+    greetingEl.textContent =
+      greeting + ", Hardeep Singh 👑";
+  }
+
+  const dateEl = document.getElementById("todayDate");
+
+  if(dateEl){
+
+    dateEl.textContent =
+      now.toLocaleDateString("en-IN",{
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      });
+
+  }
+
+  const clockEl = document.getElementById("liveClock");
+
+  if(clockEl){
+
+    clockEl.textContent =
+      now.toLocaleTimeString("en-IN",{
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+      });
+
+  }
+
+}
+
+
+/* HOME PROGRESS */
+
+function updateHomeProgress(){
+
+  const totalEl = document.getElementById("total");
+  const completedEl = document.getElementById("completed");
+  const remainingEl = document.getElementById("remaining");
+  const percentEl = document.getElementById("percent");
+
+  if(!totalEl) return;
+
+  const total = Number(totalEl.textContent) || 0;
+  const completed = Number(completedEl.textContent) || 0;
+
+  const remaining = Math.max(0,total-completed);
+
+  const percent =
+    total > 0
+    ? Math.round((completed/total)*100)
+    : 0;
+
+  if(remainingEl){
+    remainingEl.textContent = remaining;
+  }
+
+  if(percentEl){
+    percentEl.textContent = percent + "%";
+  }
+
+  const circle =
+    document.getElementById("homeProgressCircle");
+
+  if(circle){
+    circle.textContent = percent + "%";
+  }
+
+}
+
+
+/* MOTIVATION */
+
+const homeMotivations = [
+
+  "Small progress every day leads to big results. 💪",
+
+  "Focus on what you can accomplish today. 🚀",
+
+  "Your future self will thank you. ⭐",
+
+  "One task at a time. Keep going! 🔥",
+
+  "Consistency beats motivation. 💯"
+
+];
+
+const motivation =
+  document.getElementById("motivationText");
+
+if(motivation){
+
+  const index =
+    new Date().getDate() %
+    homeMotivations.length;
+
+  motivation.textContent =
+    homeMotivations[index];
+
+}
+
+
+setInterval(updatePremiumHome,1000);
+
+setInterval(updateHomeProgress,1000);
+
+updatePremiumHome();
+
+updateHomeProgress();
+
+</script>
 </body>
   <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
   ☰
