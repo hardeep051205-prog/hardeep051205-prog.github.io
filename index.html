@@ -1267,6 +1267,166 @@ background:#1f2937;color:#f9fafb
   }
 }
 </style>
+  <style>
+
+.dna-hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:30px;
+  margin-bottom:25px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  box-shadow:0 15px 40px rgba(80,60,150,.18);
+}
+
+.dna-badge{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.dna-hero h2{
+  font-size:30px;
+  margin:10px 0;
+}
+
+.dna-hero p{
+  margin:0;
+  opacity:.9;
+}
+
+.dna-icon{
+  font-size:75px;
+}
+
+.dna-score-card{
+  text-align:center;
+  padding:35px 20px;
+  margin-bottom:25px;
+  border-radius:24px;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.dna-circle{
+  width:150px;
+  height:150px;
+  margin:auto;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  box-shadow:0 12px 35px rgba(102,126,234,.35);
+}
+
+.dna-circle span{
+  font-size:48px;
+  font-weight:800;
+}
+
+.dna-circle small{
+  font-size:14px;
+  opacity:.8;
+}
+
+.dna-score-card h2{
+  margin:18px 0 8px;
+}
+
+.dna-score-card p{
+  color:#666;
+}
+
+.dna-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.dna-stat{
+  padding:24px;
+  border-radius:20px;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.dna-stat span{
+  font-size:30px;
+}
+
+.dna-stat h3{
+  margin:10px 0;
+}
+
+.dna-stat strong{
+  font-size:25px;
+}
+
+.dna-bar{
+  height:9px;
+  margin-top:14px;
+  background:#e8e8ef;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.dna-bar div{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#667eea,#764ba2);
+  transition:width .8s ease;
+}
+
+.dna-insight{
+  margin-top:25px;
+  padding:25px;
+  border-radius:22px;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.dna-insight h2{
+  margin-top:0;
+}
+
+.dna-refresh{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  border:0;
+  border-radius:16px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .dna-hero{
+    padding:22px;
+  }
+
+  .dna-hero h2{
+    font-size:23px;
+  }
+
+  .dna-icon{
+    font-size:50px;
+  }
+
+  .dna-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
 </head>
 
 <body>
@@ -1337,6 +1497,7 @@ background:#1f2937;color:#f9fafb
 <button class="nav" onclick="showPage('plans',this)">📋 My Plans</button>
 <button class="nav" onclick="showPage('calendar',this)">📅 Calendar</button>
 <button class="nav" onclick="showPage('goals',this)">🎯 Goals</button>
+<button class="nav" onclick="showPage('productivityDNA',this)">🧬 Productivity DNA</button>
 <button class="nav" onclick="showPage('stats',this)">📊 Statistics</button>
 <button class="nav" onclick="showPage('games')">🎮 Games</button>
 <button class="nav" onclick="showPage('plant')">🌱 My Plant</button>
@@ -1414,6 +1575,98 @@ background:#1f2937;color:#f9fafb
 
   </div>
   </section>
+  <section class="page" id="productivityDNA">
+
+  <div class="dna-hero">
+    <div>
+      <span class="dna-badge">🧬 YOUR PRODUCTIVITY DNA</span>
+      <h2>Understand How You Work</h2>
+      <p>Your daily actions create your unique productivity profile.</p>
+    </div>
+    <div class="dna-icon">🧬</div>
+  </div>
+
+  <div class="dna-score-card">
+    <div class="dna-circle">
+      <span id="dnaOverall">0</span>
+      <small>/100</small>
+    </div>
+
+    <h2 id="dnaLevel">Starting...</h2>
+    <p id="dnaMessage">Complete some tasks to discover your Productivity DNA.</p>
+  </div>
+
+  <div class="dna-grid">
+
+    <div class="dna-stat">
+      <span>🎯</span>
+      <h3>Focus</h3>
+      <strong id="dnaFocus">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaFocusBar"></div>
+      </div>
+    </div>
+
+    <div class="dna-stat">
+      <span>🔥</span>
+      <h3>Consistency</h3>
+      <strong id="dnaConsistency">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaConsistencyBar"></div>
+      </div>
+    </div>
+
+    <div class="dna-stat">
+      <span>💪</span>
+      <h3>Discipline</h3>
+      <strong id="dnaDiscipline">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaDisciplineBar"></div>
+      </div>
+    </div>
+
+    <div class="dna-stat">
+      <span>✅</span>
+      <h3>Completion</h3>
+      <strong id="dnaCompletion">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaCompletionBar"></div>
+      </div>
+    </div>
+
+    <div class="dna-stat">
+      <span>⏳</span>
+      <h3>Discipline Control</h3>
+      <strong id="dnaControl">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaControlBar"></div>
+      </div>
+    </div>
+
+    <div class="dna-stat">
+      <span>🚀</span>
+      <h3>Productivity</h3>
+      <strong id="dnaProductivity">0%</strong>
+      <div class="dna-bar">
+        <div id="dnaProductivityBar"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dna-insight">
+    <h2>🔍 Your Productivity Insight</h2>
+    <p id="dnaInsight">
+      Your personal productivity analysis will appear here.
+    </p>
+  </div>
+
+  <button class="dna-refresh" onclick="calculateProductivityDNA()">
+    🧬 Analyze My DNA
+  </button>
+
+</section>
+  
 
 </section>
 <button class="nav" onclick="showPage('settings',this)">⚙️ Settings</button>
@@ -3945,6 +4198,114 @@ window.showPage = function(pageId) {
     }
   }, 50);
 };
+</script>
+  <script>
+
+function calculateProductivityDNA(){
+
+  let tasks = [];
+
+  try{
+    const saved = localStorage.getItem("tasks");
+    tasks = saved ? JSON.parse(saved) : [];
+  }catch(e){
+    tasks = [];
+  }
+
+  if(!Array.isArray(tasks)){
+    tasks = [];
+  }
+
+  const total = tasks.length;
+
+  const completed = tasks.filter(task =>
+    task && task.completed === true
+  ).length;
+
+  let completion = total > 0
+    ? Math.round((completed / total) * 100)
+    : 0;
+
+  let focus = Math.min(100, 40 + completed * 5);
+
+  let consistency = Math.min(100, 30 + completed * 7);
+
+  let discipline = Math.min(100, 35 + completed * 6);
+
+  let control = total > 0
+    ? Math.max(20, Math.round((completed / total) * 100))
+    : 20;
+
+  let productivity = Math.round(
+    (focus + consistency + discipline + completion + control) / 5
+  );
+
+  if(total === 0){
+    productivity = 0;
+  }
+
+  setDNA("dnaFocus", "dnaFocusBar", focus);
+  setDNA("dnaConsistency", "dnaConsistencyBar", consistency);
+  setDNA("dnaDiscipline", "dnaDisciplineBar", discipline);
+  setDNA("dnaCompletion", "dnaCompletionBar", completion);
+  setDNA("dnaControl", "dnaControlBar", control);
+  setDNA("dnaProductivity", "dnaProductivityBar", productivity);
+
+  document.getElementById("dnaOverall").textContent = productivity;
+
+  let level = "🌱 Beginner";
+  let message = "Start completing tasks and your Productivity DNA will grow.";
+
+  if(productivity >= 80){
+    level = "👑 Productivity Legend";
+    message = "Excellent! Your habits show strong focus, consistency and discipline.";
+  }
+  else if(productivity >= 65){
+    level = "🔥 Elite Performer";
+    message = "You're building powerful productivity habits. Keep the streak alive!";
+  }
+  else if(productivity >= 45){
+    level = "⚡ Focused Builder";
+    message = "You're making progress. Consistency is your next big upgrade.";
+  }
+
+  document.getElementById("dnaLevel").textContent = level;
+  document.getElementById("dnaMessage").textContent = message;
+
+  let insight = "";
+
+  if(total === 0){
+    insight = "Add some tasks in My Plans and complete them. Your Productivity DNA will analyze your progress.";
+  }
+  else if(completion >= 80){
+    insight = "Your strongest trait is task completion. You are very good at finishing what you start.";
+  }
+  else if(completion >= 50){
+    insight = "You're completing a good number of tasks. Try finishing your highest-priority task first.";
+  }
+  else{
+    insight = "Your biggest opportunity is consistency. Start with 2–3 important tasks each day.";
+  }
+
+  document.getElementById("dnaInsight").textContent = insight;
+}
+
+function setDNA(textId, barId, value){
+
+  const text = document.getElementById(textId);
+  const bar = document.getElementById(barId);
+
+  if(text){
+    text.textContent = value + "%";
+  }
+
+  if(bar){
+    bar.style.width = value + "%";
+  }
+}
+
+calculateProductivityDNA();
+
 </script>
 </body>
   <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
