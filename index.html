@@ -2397,42 +2397,435 @@ background:#1f2937;color:#f9fafb
 
 </section>
 
-<!--PREMIUM HOME -->
+<!-- PREMIUM HOME -->
 <section class="page active" id="home">
-<div class="hero">
-<h2>Good Day! 👋</h2>
-<p>Let's make today productive.</p>
-</div>
 
-<div class="cards">
-<div class="card"><small>Total Tasks</small><div class="number" id="total">0</div></div>
-<div class="card"><small>Completed</small><div class="number" id="completed">0</div></div>
-<div class="card"><small>Remaining</small><div class="number" id="remaining">0</div></div>
-<div class="card"><small>Progress</small><div class="number" id="percent">0%</div></div>
-</div>
+  <!-- HERO -->
+  <div class="home-hero">
 
-<div class="card">
-<b>Today's Progress</b>
-<div class="progress"><div class="progress-bar" id="bar"></div></div>
-</div>
+    <div class="hero-overlay"></div>
 
-<h3 class="section-title">Quick Add Task</h3>
-<div class="form">
-<div class="row">
-<input class="task-input" id="taskInput" placeholder="What do you need to do?">
-<select id="priority">
-<option value="low">Low Priority</option>
-<option value="medium">Medium Priority</option>
-<option value="high">High Priority</option>
-</select>
-<input type="time" id="taskTime">
-<button class="add" onclick="addTask()">＋ Add Task</button>
-</div>
-</div>
+    <div class="hero-content">
 
-<div id="homeTasks"></div>
+      <span class="hero-badge">✨ TODAY'S PLAN</span>
+
+      <h1 id="greeting">
+        Good Morning, Everyone 👑
+      </h1>
+
+      <p>
+        Small steps every day lead to big results.
+      </p>
+
+      <div class="hero-info">
+
+        <span>
+          📅 <b id="todayDate">Loading...</b>
+        </span>
+
+        <span>
+          🕐 <b id="liveClock">00:00:00</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="hero-quote">
+
+      <span>♛</span>
+
+      <strong>
+        Better<br>
+        Than<br>
+        Yesterday
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- HOME STATS -->
+  <div class="home-stats">
+
+    <div class="home-stat">
+
+      <div class="stat-icon blue">📝</div>
+
+      <div>
+        <small>Total Tasks</small>
+
+        <strong id="total">0</strong>
+
+        <span>Today's tasks</span>
+      </div>
+
+    </div>
+
+
+    <div class="home-stat">
+
+      <div class="stat-icon green">✓</div>
+
+      <div>
+        <small>Completed</small>
+
+        <strong id="completed">0</strong>
+
+        <span>Great progress!</span>
+      </div>
+
+    </div>
+
+
+    <div class="home-stat">
+
+      <div class="stat-icon purple">⏳</div>
+
+      <div>
+        <small>Remaining</small>
+
+        <strong id="remaining">0</strong>
+
+        <span>Keep going</span>
+      </div>
+
+    </div>
+
+
+    <div class="home-stat">
+
+      <div class="stat-icon pink">🎯</div>
+
+      <div>
+        <small>Progress</small>
+
+        <strong id="percent">0%</strong>
+
+        <span>Today's progress</span>
+      </div>
+
+    </div>
+
+
+    <div class="home-stat streak-card">
+
+      <div class="stat-icon orange">🔥</div>
+
+      <div>
+        <small>Daily Streak</small>
+
+        <strong id="homeStreak">0 Days</strong>
+
+        <span>Keep going!</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FEATURE CARDS -->
+  <div class="home-feature-grid">
+
+
+    <!-- TODAY'S FOCUS -->
+    <div class="home-card focus-card">
+
+      <div class="card-heading">
+
+        <span>🎯</span>
+
+        <h2>Today's Focus</h2>
+
+      </div>
+
+      <div class="focus-box">
+
+        <div class="focus-plus">＋</div>
+
+        <h3 id="focusTitle">
+          No focus task set yet
+        </h3>
+
+        <p>
+          Add your most important task for today.
+        </p>
+
+        <button
+          onclick="document.getElementById('taskInput').focus()"
+        >
+          ＋ Add Task
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCTIVITY DNA -->
+    <div
+      class="home-card mini-card"
+      onclick="showPage('productivityDNA')"
+    >
+
+      <div class="card-heading">
+
+        <span>🧬</span>
+
+        <h2>Productivity DNA</h2>
+
+        <b>›</b>
+
+      </div>
+
+      <div class="mini-score">
+
+        <div class="score-ring">
+
+          <strong id="homeDNA">0</strong>
+
+          <small>/100</small>
+
+        </div>
+
+      </div>
+
+      <p class="mini-label">
+        🌱 Beginner
+      </p>
+
+    </div>
+
+
+    <!-- PLAN AI -->
+    <div
+      class="home-card mini-card"
+      onclick="showPage('planAI')"
+    >
+
+      <div class="card-heading">
+
+        <span>🤖</span>
+
+        <h2>PlanAI</h2>
+
+        <b>›</b>
+
+      </div>
+
+      <div class="ai-icon">
+        🤖
+      </div>
+
+      <p>
+        Get smart suggestions for your day.
+      </p>
+
+      <button class="mini-button">
+        Open PlanAI →
+      </button>
+
+    </div>
+
+
+    <!-- MY PLANT -->
+    <div
+      class="home-card mini-card"
+      onclick="showPage('plant')"
+    >
+
+      <div class="card-heading">
+
+        <span>🌱</span>
+
+        <h2>My Plant</h2>
+
+        <b>›</b>
+
+      </div>
+
+      <div class="plant-preview">
+        🌱
+      </div>
+
+      <p>
+        Healthy & Growing
+      </p>
+
+      <div class="mini-progress">
+
+        <div id="homePlantProgress"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TODAY'S PROGRESS -->
+    <div class="home-card mini-card progress-card">
+
+      <div class="card-heading">
+
+        <span>📈</span>
+
+        <h2>Today's Progress</h2>
+
+        <b>›</b>
+
+      </div>
+
+      <div class="big-progress">
+
+        <div>
+
+          <strong id="homeProgressCircle">
+            0%
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- BOTTOM SECTION -->
+  <div class="home-bottom-grid">
+
+
+    <!-- MOTIVATION -->
+    <div class="motivation-card">
+
+      <div>
+
+        <span class="motivation-icon">
+          💡
+        </span>
+
+        <h2>
+          Daily Motivation
+        </h2>
+
+      </div>
+
+      <p id="motivationText">
+        Success is the sum of small efforts
+        repeated every day.
+      </p>
+
+      <small>
+        — Today's Plan
+      </small>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+    <div class="quick-actions-card">
+
+      <div class="card-heading">
+
+        <span>⚡</span>
+
+        <h2>Quick Actions</h2>
+
+      </div>
+
+      <div class="quick-actions">
+
+        <button
+          onclick="document.getElementById('taskInput').focus()"
+        >
+          <span>＋</span>
+          Add Task
+        </button>
+
+        <button
+          onclick="showPage('calendar')"
+        >
+          <span>📅</span>
+          Calendar
+        </button>
+
+        <button
+          onclick="showPage('goals')"
+        >
+          <span>🎯</span>
+          Goals
+        </button>
+
+        <button
+          onclick="showPage('notes')"
+        >
+          <span>📝</span>
+          Notes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- QUICK ADD TASK -->
+  <div
+    class="home-card quick-add-original"
+  >
+
+    <h2>
+      ⚡ Quick Add Task
+    </h2>
+
+    <div class="quick-add-row">
+
+      <input
+        type="text"
+        id="taskInput"
+        class="task-input"
+        placeholder="What do you need to do?"
+      >
+
+      <select id="priority">
+
+        <option value="low">
+          Low Priority
+        </option>
+
+        <option value="medium">
+          Medium Priority
+        </option>
+
+        <option value="high">
+          High Priority
+        </option>
+
+      </select>
+
+      <input
+        type="time"
+        id="taskTime"
+      >
+
+      <button
+        onclick="addTask()"
+      >
+        ＋ Add Task
+      </button>
+
+    </div>
+
+
+    <!-- EXISTING TASK LIST -->
+    <div id="homeTasks"></div>
+
+  </div>
+
 </section>
-
 <!-- PLANS -->
 <section class="page" id="plans">
 <h2>📋 My Plans</h2>
